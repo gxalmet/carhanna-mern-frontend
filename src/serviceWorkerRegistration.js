@@ -55,6 +55,9 @@ export function register(config) {
                 registerValidSW(swUrl, config);
             }
         });
+    } else {
+        console.log("process.env.NODE_ENV" + process.env.NODE_ENV);
+        console.log("navigator" + navigator);
     }
 }
 
