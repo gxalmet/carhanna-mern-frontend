@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+ /* Configuració general de la APP*/
+    
+    html,
+    body {
+        height: 100%;
+        margin: 0px;
+    }
+    
+    .main {
+        overflow: auto;
+        /* padding-bottom: 5rem; */
+        flex: 1;
+        padding-top: 5rem;
+        height: 97vh;
+        /* border: .2rem solid grey */
+    }
+    
+    .footer {
+        display: block;
+        position: fixed;
+        height: 3vh;
+        width: 100%;
+        text-align: center;
+        bottom: 0;
+        /* background: white; */
+        font-size: .8rem;
+        color: grey;
+        border-top: 1px solid grey;
+        /* box-shadow: 5px 10px grey; */
+    }
+    /* modificació de la barra lateral que apareix a tots llocs*/
+    
+     ::-webkit-scrollbar {
+        width: 20px;
+    }
+    
+     ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #575757;
+        border-radius: 10px;
+    }
+    
+     ::-webkit-scrollbar-thumb {
+        background: #575757;
+        border-radius: 10px;
+    }
+    
+     ::-webkit-scrollbar-thumb:hover {
+        background: #575757;
+    }
+    /* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+    /* modificació de les taules d'agenda i com es mostren en dispositius petits*/
+    
+    @media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+        /* Force table to not be like tables anymore */
+        /* table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+            display: block !important;
+        }         */
+        .table-agenda,
+        .table-head-agenda,
+        .table-body-agenda,
+        /* th, */
+        .table-cell-agenda,
+        .table-row-agenda {
+            display: block !important;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        .table-head-agenda .table-row-agenda {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        .table-row-agenda {
+            border: 1px solid #ccc;
+        }
+        .table-cell-agenda {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+        .table-cell-agenda:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+        /*
+	Label the data
+	*/
+        /* td:nth-of-type(1):before { content: "First Name"; }
+	td:nth-of-type(2):before { content: "Last Name"; }
+	td:nth-of-type(3):before { content: "Job Title"; }
+	td:nth-of-type(4):before { content: "Favorite Color"; }
+	td:nth-of-type(5):before { content: "Wars of Trek?"; }
+	td:nth-of-type(6):before { content: "Secret Alias"; }
+	td:nth-of-type(7):before { content: "Date of Birth"; }
+	td:nth-of-type(8):before { content: "Dream Vacation City"; }
+	td:nth-of-type(9):before { content: "GPA"; }
+	td:nth-of-type(10):before { content: "Arbitrary Data"; } */
+    }
