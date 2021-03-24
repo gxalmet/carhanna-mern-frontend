@@ -34,10 +34,10 @@ export function register(config) {
         }
 
         window.addEventListener('load', () => {
-            console.log("window.addEventListener");
-            console.log("process.env.PUBLIC_URL" + process.env.PUBLIC_URL);
+            // console.log("window.addEventListener");
+            // console.log("process.env.PUBLIC_URL" + process.env.PUBLIC_URL);
             const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-            console.log(swUrl);
+            // console.log(swUrl);
             if (isLocalhost) {
                 // This is running on localhost. Let's check if a service worker still exists or not.
                 checkValidServiceWorker(swUrl, config);
@@ -56,8 +56,8 @@ export function register(config) {
             }
         });
     } else {
-        console.log("process.env.NODE_ENV" + process.env.NODE_ENV);
-        console.log("navigator" + navigator);
+        // console.log("process.env.NODE_ENV" + process.env.NODE_ENV);
+        // console.log("navigator" + navigator);
     }
 }
 

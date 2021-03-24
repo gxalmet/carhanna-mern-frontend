@@ -50,15 +50,20 @@ export default function TeamScreen () {
 
     useEffect(() => {
         if(loading === false){
-            setName(team.name);
-            setTeamDisplay(team);
-            if(team.collegues){
-                setCollegues(team.collegues);
+            if(team){
+                setTeamDisplay(team);
+                setName(team.name);
+                if(team.collegues){
+                    setCollegues(team.collegues);
+                }
             }
         }else{
-            dispatch(readTeam());
+            if(error === false){
+                dispatch(readTeam());
+            }
+            
         }
-    }, [dispatch, loading, success, team ]);
+    }, [dispatch, error, loading, success, team]);
 
     
 

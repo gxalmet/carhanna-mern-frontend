@@ -20,7 +20,12 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
     //const [teamPro, setTeamPro] = useState([]);
 
     const teamRead = useSelector(state => state.teamRead);
-    const { loading, team, error, success } = teamRead;
+    const { 
+        loading, 
+        team, 
+        // error, 
+        success 
+    } = teamRead;
 
     useEffect(() => {
         if(loading === false){

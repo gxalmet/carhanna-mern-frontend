@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 
 function Collegues(props) {
     const collegues = props.collegues;
-    const userId = props.userId;
+    //const userId = props.userId;
     
     return (
 
