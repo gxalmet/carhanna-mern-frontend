@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Col, Card } from 'react-bootstrap';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,9 +13,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import { search } from '../actions/userActions';
-import { updateTeam } from '../actions/teamActions';
+// import { readTeam, updateTeam } from '../actions/teamActions';
 //import { Container } from '@material-ui/core';
-
+import SearchIcon from '@material-ui/icons/Search';
+// import AddIcon from '@material-ui/icons/Add';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+// import RemoveIcon from '@material-ui/icons/Remove';
+// import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 function AddCollegue(props) {
 
     const team = props.team;
@@ -29,51 +33,77 @@ function AddCollegue(props) {
         e.preventDefault();  
         dispatch(search(fieldSearch));
     }
-    function addToTeam(id) {
-        // console.log(team);
-        team.collegues.push(id);
-        dispatch(updateTeam(team._id, team.name, team.collegues));
+    function addToTeam(user) {
+        console.log(user);
+        team.collegues.push(user._id);
+        // dispatch(updateTeam(team._id, team.name, team.collegues));
+        // dispatch(readTeam());
+        users.usersResult.splice(users.usersResult.findIndex(function(usersearch){
+            return usersearch._id === user._id;
+        }), 1);
+        props.action();
     }
 
+    //console.log(users);
     return (   
-        <Grid item xs={11}>
-            <Typography variant="h6" align="center" style={{ paddingTop: '5rem'}}> 
-                Search users to add to your team
-            </Typography>
+        <Grid item xs={12}>
+            <Card>
+                <Card.Body>
+                <Form className="form" >
+                    <Typography variant="h6" align="center" style={{ paddingTop: '5rem'}}> 
+                        Search users to add to your team
+                    </Typography>
+                    </Form>
+                </Card.Body>
+            </Card>
             { loading && ( <LoadingBox mes ='Searching users'></LoadingBox> ) }
             { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }
             { success && ( <LoadingBox mes ='Search success...'></LoadingBox> ) }
-            <Form className="form" >
-                <Form.Group controlId="formBasicText">
-                    <Form.Label>Team Name</Form.Label>
-                    <Form.Control type="text" defaultValue={fieldSearch} onChange={(e)=>setFieldSearch(e.target.value)}/>
-                </Form.Group>
-                <br></br>
-                <Button  variant="primary" block type="submit" onClick={searchUsers}>
-                    Search users
-                </Button> 
-            </Form>
-            { users && users.length > 0 &&
+            <Card>
+                <Card.Body>
+                    <Form className="form" >
+                        <Form.Row>
+                            <Col sm="12">
+                                <Form.Label>User Name</Form.Label>
+                            </Col>
+                        </Form.Row>
+                        
+                        <Form.Row>
+                            <Col sm="11">
+                                <Form.Group controlId="formBasicText">
+                                    <Form.Control type="text" defaultValue={fieldSearch} onChange={(e)=>setFieldSearch(e.target.value)}/>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                            <Button  variant="light" block type="submit" onClick={searchUsers} title="Search">
+                                    <SearchIcon ></SearchIcon>
+                                </Button> 
+                            </Col>
+                        </Form.Row>
+                    </Form>
+                </Card.Body>
+            </Card>
+            { users &&  users.usersResult.length > 0 &&
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Name</TableCell>
-                            <TableCell align="center">Surname</TableCell>
-                            <TableCell align="center">E-mail</TableCell>
-                            <TableCell align="left">Add</TableCell>
+                            <TableCell align="center" style={{ width: '90%' }}>E-mail</TableCell>
+                            <TableCell align="left" size="small">Add</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map((col,i)=>{
+                        { users.usersResult.map((user,i)=>{
+                            console.log(user._id);
+                            console.log(i);
                             return (
-                            <TableRow key={col._id}>
-                                <TableCell  align="center">{col.name}</TableCell>
-                                <TableCell  align="center">{col.surname}</TableCell>
-                                <TableCell  align="center">{col.email}</TableCell>
+                            <TableRow key={i}>
+                                {/* <TableCell  align="center">{col.name}</TableCell>
+                                <TableCell  align="center">{col.surname}</TableCell> */}
+                                <TableCell  align="center">{user.email}</TableCell>
                                 <TableCell  align="right">
-                                    <Button  variant="primary" block type="submit" onClick={(e)=>addToTeam(col._id)}>
-                                        Add to team
+                                    <Button  variant="light" block type="submit" onClick={()=>addToTeam(user)} title="Add to team">
+                                        <PersonAddIcon ></PersonAddIcon>
                                     </Button>
                                 </TableCell>
                             </TableRow> )

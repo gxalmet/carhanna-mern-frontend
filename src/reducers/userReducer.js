@@ -3,7 +3,9 @@ import {
     USERS_SEARCH_FAIL,
     USERS_SEARCH_REQUEST,
     USERS_SEARCH_SUCCESS,
+    USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS,
     USER_SIGNIN_FAIL,
     USER_SIGNIN_REQUEST,
     USER_SIGNIN_SUCCESS,
@@ -33,11 +35,10 @@ export const userRegisterReducer = (state = { loading: false, user: {} }, action
     switch (action.type) {
         case USER_REGISTER_REQUEST:
             return { loading: true };
-        case USER_SIGNIN_SUCCESS:
-            return { loading: false, userInfo: action.payload };
-        case USER_SIGNIN_FAIL:
-
-            return { loading: false, error: action.payload };
+        case USER_REGISTER_SUCCESS:
+            return { loading: false, userInfo: action.payload, success: true };
+        case USER_REGISTER_FAIL:
+            return { loading: false, error: action.payload, success: false };
         default:
             return state;
     }

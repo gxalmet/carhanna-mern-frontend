@@ -23,9 +23,9 @@ export const createProjectReducer = (state = { loading: true, project: {} }, act
         case PROJECT_CREATE_REQUEST:
             return { loading: true };
         case PROJECT_CREATE_SUCCESS:
-            return { loading: false, project: action.payload };
+            return { loading: false, project: action.payload, success: true };
         case PROJECT_CREATE_FAIL:
-            return { loading: false, error: action.payload };
+            return { loading: false, error: action.payload, success: true };
         default:
             return state;
     }
@@ -37,9 +37,9 @@ export const updateProjectReducer = (state = { loading: false, project: {} }, ac
         case PROJECT_UPDATE_REQUEST:
             return { loading: true };
         case PROJECT_UPDATE_SUCCESS:
-            return { loading: false, project: action.payload };
+            return { loading: false, project: action.payload, success: true };
         case PROJECT_UPDATE_FAIL:
-            return { loading: false, error: action.payload };
+            return { loading: false, error: action.payload, success: false };
         default:
             return state;
     }

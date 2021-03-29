@@ -9,6 +9,7 @@ import MessageBox from '../components/MessageBox';
 import { Form, Button, Container } from 'react-bootstrap';
 //import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Alert from 'react-bootstrap/Alert';
 
 export default function RegisterScreen(props) {
    
@@ -35,12 +36,10 @@ export default function RegisterScreen(props) {
     }
 
     useEffect(() => {
-        if(userInfo){
-            props.history.push('/');
-        }
+        // if(userInfo){
+        //     props.history.push('/home');
+        // }
     }, [props.history, userInfo]);
-
-    
 
     return (
 
@@ -50,8 +49,13 @@ export default function RegisterScreen(props) {
                     Register
                 </Typography>
                 <Form className="form" onSubmit={submitHandler}>
-                    { loading && ( <LoadingBox>User created!!</LoadingBox> ) }
+                    { loading && ( <LoadingBox mes="Loading"></LoadingBox> ) }
                     { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }
+                    { userInfo && ( 
+                        <Alert key="2" variant="primary">
+                            User created!!! Please 
+                            <Alert.Link href="/login"> log in</Alert.Link>. 
+                        </Alert> ) }
                     <Form.Group >
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" placeholder="Enter name" onChange={(e)=>setName(e.target.value)}/>

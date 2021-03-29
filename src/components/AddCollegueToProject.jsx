@@ -12,11 +12,14 @@ import {
     Button 
 } from 'react-bootstrap';
 import { readTeam } from '../actions/teamActions';
-
+// import AddIcon from '@material-ui/icons/Add';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+// import RemoveIcon from '@material-ui/icons/Remove';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeUserToTeam}) {
 
     const dispatch = useDispatch();
-    const [teamDisplay, setTeamDisplay] = useState({});
+    const [teamDisplay, setTeamDisplay] = useState([]);
     //const [teamPro, setTeamPro] = useState([]);
 
     const teamRead = useSelector(state => state.teamRead);
@@ -28,26 +31,27 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
     } = teamRead;
 
     useEffect(() => {
-        if(loading === false){
-            
+        if(success === true ){
+            // console.log("team");
+            // console.log(team);
             setTeamDisplay(team);
             //setTeamPro(teamProject);
-            
         }else{
             dispatch(readTeam());
         }
     }, [dispatch, loading, success, team, teamProject]);
 
     function userInTeam(id) {
+        console.log(teamDisplay.collegues);
+        console.log(teamProject);
+        console.log(id);
         if(teamProject){
-            var findId = teamProject.find(col => col === id );
+            return teamProject.includes( id );
         }
-        if(findId){
-            return true;
-        }else{
-            return false;
-        }
+
     }
+
+
 
     function calladdUserToTeam(e,id){
         e.preventDefault();
@@ -58,15 +62,19 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
         removeUserToTeam(e,id);
     }
 
+    // console.log("teamDisplay");
+    // console.log(teamDisplay);
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="simple table">
                 <TableBody>
                     {teamDisplay.collegues && 
                     teamDisplay.collegues.map((col,i)=>{
+                        
                         if(col._id === projectOwner){
                             return (    
-                                <TableRow key={col._id}>
+                                <TableRow key={i}>
                                     <TableCell  align="center">{col.name}</TableCell>
                                     <TableCell  align="center">{col.surname}</TableCell>
                                     <TableCell  align="center">{col.email}</TableCell>
@@ -74,18 +82,18 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
                                 </TableRow> )
                         }else{
                             return (
-                                <TableRow key={col._id}>
+                                <TableRow key={i}>
                                     <TableCell  align="center">{col.name}</TableCell>
                                     <TableCell  align="center">{col.surname}</TableCell>
                                     <TableCell  align="center">{col.email}</TableCell>
                                     <TableCell  align="right">
                                         { userInTeam(col._id)
                                         ? 
-                                        (<Button  variant="secondary" block type="submit" onClick={(e)=>callRemoveUserToTeam(e, col._id)}>
-                                            Erase from project
+                                        (<Button title="Remove collegue from project." variant="ligth" block type="submit" onClick={(e)=>callRemoveUserToTeam(e, col._id)}>
+                                            <PersonAddDisabledIcon/>
                                         </Button> ) 
-                                        : (<Button  variant="primary" block type="submit" onClick={(e)=>calladdUserToTeam(e, col._id)}>
-                                            Add to project
+                                        : (<Button title="Add collegue from project." variant="ligth" block type="submit" onClick={(e)=>calladdUserToTeam(e, col._id)}>
+                                            <PersonAddIcon ></PersonAddIcon>
                                         </Button> ) 
                                         } 
                                     </TableCell>

@@ -30,12 +30,14 @@ export const signOut = () => (dispatch) => {
 export const register = (name, surname, email, password) => async(dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST });
     try {
+
         const url = `${base_url}/api/users/register`;
 
         const { data } = await Axios.post(url, { name, surname, email, password });
 
         dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-        localStorage.setItem('userInfo', JSON.stringify(data));
+
+        // localStorage.setItem('userInfo', JSON.stringify(data));
 
     } catch (error) {
         dispatch({

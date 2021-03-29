@@ -27,7 +27,7 @@ export const updateTeamReducer = (state = { loading: false, team: {} }, action) 
     }
 }
 
-export const readTeamReducer = (state = { loading: true, team: {} }, action) => {
+export const readTeamReducer = (state = { loading: false, team: {} }, action) => {
     switch (action.type) {
         case TEAM_READ_REQUEST:
             return { loading: true };

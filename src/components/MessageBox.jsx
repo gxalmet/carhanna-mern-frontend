@@ -5,6 +5,7 @@ export default function MessageBox(props) {
     return (
         <Alert key={props.id} variant={props.variant}>
             {props.mes}
+            
         </Alert>
     );
 }

@@ -20,7 +20,7 @@ import { createScream } from '../actions/screamActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useHistory } from 'react-router-dom';
-
+import SaveIcon from '@material-ui/icons/Save';
 import { convertDate } from  '../utils/utils.js';
 import AddCollegueToProject from '../components/AddCollegueToProject';
 import { makeStyles } from '@material-ui/core';
@@ -39,6 +39,10 @@ export default function EditProjectScreen(props) {
     const classes = useStyles();
     const projectRead = useSelector((state)=> state.projectRead)  || {};
     const { loading, project, success } = projectRead;
+
+    const projectUpdate = useSelector((state)=> state.projectUpdate);
+    // eslint-disable-next-line no-unused-vars
+    const { loading: loadingUpdated, project: projectUpdated, success: successUpdated } = projectUpdate;
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -66,6 +70,7 @@ export default function EditProjectScreen(props) {
 
     function addIdToTeam(e,id) {
         setTeam(team => team.concat(id)); 
+        dispatch(updateProject(project._id, null, name, description, begin_date, end_date, status, team ));  
     }
     function removeIdToTeam(e,id) {
         var array = [...team]; // make a separate copy of the array
@@ -74,6 +79,7 @@ export default function EditProjectScreen(props) {
           array.splice(index, 1);
           setTeam(array);
         }
+        dispatch(updateProject(project._id, null, name, description, begin_date, end_date, status, team ));  
     }
 
 
@@ -107,7 +113,8 @@ export default function EditProjectScreen(props) {
                         Create project
                     </Typography>
                     { loading === true && ( <LoadingBox id="1" mes="Loading data..."></LoadingBox> ) }
-                    { success === false && ( <MessageBox id ="2" variant='danger' mes="Creación correcta!!"></MessageBox> ) }
+                    {/* { success === true && ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> ) } */}
+                    { successUpdated === true && ( <MessageBox id ="2" variant='info' mes="Project saved!!"></MessageBox> ) }
                     <Form className="form" >
                         <Form.Group controlId="formBasicText">
                             <Form.Label>Name</Form.Label>
@@ -154,13 +161,13 @@ export default function EditProjectScreen(props) {
                         }
                         
                         <br></br>
-                        <Button variant="primary" block onClick={saveProjectButton}>
-                            Submit
+                        <Button variant="light" block onClick={saveProjectButton}>
+                            <SaveIcon ></SaveIcon>
                         </Button>
-                        <Button variant="secondary" block onClick={createProjectButton}>
+                        <Button variant="light" block onClick={createProjectButton}>
                             Create sub-project
                         </Button>
-                        <Button variant="secondary" block onClick={createChatButton}>
+                        <Button variant="light" block onClick={createChatButton}>
                             Create chat
                         </Button>
                     </Form>
