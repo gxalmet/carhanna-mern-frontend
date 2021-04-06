@@ -9,13 +9,17 @@ import Paper from '@material-ui/core/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
     //Form, 
-    Button 
+    Button,
+    Card 
 } from 'react-bootstrap';
 import { readTeam } from '../actions/teamActions';
 // import AddIcon from '@material-ui/icons/Add';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import RemoveIcon from '@material-ui/icons/Remove';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import { TableHead, Typography } from '@material-ui/core';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+
 function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeUserToTeam}) {
 
     const dispatch = useDispatch();
@@ -32,8 +36,6 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
 
     useEffect(() => {
         if(success === true ){
-            // console.log("team");
-            // console.log(team);
             setTeamDisplay(team);
             //setTeamPro(teamProject);
         }else{
@@ -42,9 +44,6 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
     }, [dispatch, loading, success, team, teamProject]);
 
     function userInTeam(id) {
-        console.log(teamDisplay.collegues);
-        console.log(teamProject);
-        console.log(id);
         if(teamProject){
             return teamProject.includes( id );
         }
@@ -67,26 +66,42 @@ function AddCollegueToProject({teamProject, projectOwner, addUserToTeam, removeU
 
     return (
         <TableContainer component={Paper}>
+            <Card>
+                <Card.Body>
+                    <Typography variant="subtitle1" align="center" >
+                        My collegues in this project.
+                    </Typography>
+                </Card.Body>
+            </Card>
             <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="left">User</TableCell>
+                        <TableCell align="center">Action</TableCell>
+                    </TableRow>
+                </TableHead>
                 <TableBody>
+
                     {teamDisplay.collegues && 
                     teamDisplay.collegues.map((col,i)=>{
                         
                         if(col._id === projectOwner){
                             return (    
                                 <TableRow key={i}>
-                                    <TableCell  align="center">{col.name}</TableCell>
-                                    <TableCell  align="center">{col.surname}</TableCell>
-                                    <TableCell  align="center">{col.email}</TableCell>
-                                    <TableCell  align="right"></TableCell>
+                                    {/* <TableCell  align="center">{col.name}</TableCell>
+                                    <TableCell  align="center">{col.surname}</TableCell> */}
+                                    <TableCell  align="left">{col.email}</TableCell>
+                                    <TableCell  align="left">
+                                        <Button title="Project Owner" variant="ligth" block> <HomeWorkIcon/></Button>
+                                    </TableCell>
                                 </TableRow> )
                         }else{
                             return (
                                 <TableRow key={i}>
-                                    <TableCell  align="center">{col.name}</TableCell>
-                                    <TableCell  align="center">{col.surname}</TableCell>
-                                    <TableCell  align="center">{col.email}</TableCell>
-                                    <TableCell  align="right">
+                                    {/* <TableCell  align="center">{col.name}</TableCell>
+                                    <TableCell  align="center">{col.surname}</TableCell> */}
+                                    <TableCell  align="left">{col.email}</TableCell>
+                                    <TableCell  align="left">
                                         { userInTeam(col._id)
                                         ? 
                                         (<Button title="Remove collegue from project." variant="ligth" block type="submit" onClick={(e)=>callRemoveUserToTeam(e, col._id)}>

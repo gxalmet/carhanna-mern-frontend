@@ -29,7 +29,7 @@ import Paper from '@material-ui/core/Paper';
 // import SvgIcon from '@material-ui/core/SvgIcon';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 //import Box from '@material-ui/core/Box';
-
+import SearchIcon from '@material-ui/icons/Search';
 export default function AgendaScreen() {
     const history = useHistory();
     const [beginDate, setBeginDate] = useState('');
@@ -82,8 +82,8 @@ export default function AgendaScreen() {
     // }
     
     return (
-        <Container fluid>
-            <Grid item xs={12}>
+        <Container fluid xs={12}>
+            {/* <Grid item xs={12}> */}
                 <Card >
                     <Card.Body>
                         <Typography variant="h5" align="center" > 
@@ -107,14 +107,15 @@ export default function AgendaScreen() {
                                         <Form.Control type="date" defaultValue={endDate} onChange={(e)=>setEndDate(e.target.value)}/>
                                     </Form.Group>
                                 </Col>
-                                <Button variant="primary" block onClick={searchProjectsButton}>
-                                    Search Projects
+                                
+                                <Button variant="light" block onClick={searchProjectsButton}>
+                                    <SearchIcon/>
                                 </Button>
                             </Form.Row>
                         </Form>
                     </Card.Body>
                 </Card>
-            </Grid>
+            {/* </Grid> */}
             <Grid item xs={12}>
             
                 <Card>

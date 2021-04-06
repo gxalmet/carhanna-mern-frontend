@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom';
 //import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { readScream } from '../actions/screamActions'
-
+import SendSharpIcon from '@material-ui/icons/SendSharp';
 import { Form, Button, Container, Card } from 'react-bootstrap';
-import { createScream } from '../actions/screamActions';
+//import { createScream } from '../actions/screamActions';
 import { updateScream } from '../actions/screamActions'
 //import Typography from '@material-ui/core/Typography';
 import ChatRow from '../components/ChatRow';
@@ -20,12 +20,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 function ScreamsScreen(props) {
     const history = useHistory();
-    const scrollRef = useRef();
-    const projectSelId = props.match.params.id;
     const dispatch = useDispatch();
     const classes = useStyles();
+
+    const scrollRef = useRef();
+
+    const projectSelId = props.match.params.id;
+    
     const screamRead = useSelector(state => state.screamRead);
     const { loading, scream, success } = screamRead;
+
     const initialContent = '';
     const [content, setContent] = useState(initialContent);
     const [screamsList, setScreamsList] = useState({});
@@ -41,35 +45,49 @@ function ScreamsScreen(props) {
         if(content){
             dispatch(updateScream(screamsList._id,content));
             dispatch(readScream(projectSelId));
-            
-            
-            setContent('');
-            // console.log(content);   
+            setContent(initialContent);
         }
         scrollToBottom();
     }
+    
 
     useEffect(() => {
+        
         scrollToBottom();
-        if(projectSelId){
-            if(loading === false){
-                if(success === false){ 
-                    dispatch(readScream(projectSelId));
-                }else{
-                    setScreamsList(scream);
-                }   
-            }else{
-                dispatch(readScream(projectSelId));
+        
+        if(loading === false){
+            if(scream && projectSelId === scream.projectId._id){
+                setScreamsList(scream);
             }
-            if(projectSelId !== screamsList.projectId){
+            if(scream && projectSelId !== scream.projectId._id){
                 dispatch(readScream(projectSelId));
-            }
-            // console.log('success');
-            // console.log(success);
-            if(!screamsList){
-                dispatch(createScream(projectSelId)); 
-            } 
+            }    
+        }else{
+            dispatch(readScream(projectSelId));
         } 
+
+        // if(projectSelId){
+        //     if(projectSelId !== screamsList.projectId){
+        //         setScreamsList({});
+        //         if(loading === true && !success){
+        //             dispatch(readScream(projectSelId));
+        //         }
+                
+        //     }
+        //     if(loading === false){
+        //         if(success === false){ 
+        //             dispatch(readScream(projectSelId));
+        //         }else{
+        //             setScreamsList(scream);
+        //         }   
+        //     }else{
+        //         //dispatch(readScream(projectSelId));
+        //     }
+
+        //     // if(!screamsList){
+        //     //     dispatch(createScream(projectSelId)); 
+        //     // } 
+        //} 
     }, [dispatch, loading, scream, success, projectSelId, screamsList.projectId, screamsList])
 
     const scrollToBottom = () => {
@@ -79,9 +97,14 @@ function ScreamsScreen(props) {
     return (
         <Container fluid>
             <Card >
-                <Typography variant="h5" align="center" > 
-                    Proyecto
-                </Typography>
+                <Card.Body>
+                    {screamsList.projectId &&
+                        <Typography variant="h5" align="center" > 
+                            {screamsList.projectId.name}
+                        </Typography>
+                    }
+                    
+                </Card.Body>
             </Card>
             <Container fluid xs={12} >
                 <Button variant="outline-secondary" block onClick={backToChats}>Back to chats</Button>
@@ -111,7 +134,7 @@ function ScreamsScreen(props) {
                 </Grid>
                 <Grid item xs={2} style={{ position: 'relative'}}>
                     <Button variant="outline-secondary" onClick={(e)=>sendScream(e)} block>
-                        Send
+                        <SendSharpIcon/>
                     </Button>
                 </Grid>
             </Grid>

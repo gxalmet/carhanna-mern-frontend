@@ -30,7 +30,7 @@ import
     // Form, 
     // Col, 
     Button, 
-    // Card, 
+    Card, 
     // CardDeck, 
     // CardGroup 
 } from 'react-bootstrap';
@@ -88,36 +88,59 @@ export default function CalendarScreen() {
             justify="center"
             alignItems="center">
             <Grid item xs={12}>
-                <Typography variant="h5" align="center" > 
-                    Calendar
-                </Typography>
+                <Card >
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            Calendar
+                        </Typography>
+                    </Card.Body>
+                </Card>
+
                 <TableContainer component={Paper} >
                     <Table aria-label="collapsible table">
                         <TableHead>
                             <TableRow>
                                 {header.map((head, h)=>{
                                     return ( 
-                                    <TableCell key={h} style={{border: '.2rem solid white', fontSize:'.7rem', color: 'white', backgroundColor: 'grey', lineHeight:'1rem'}}>
+                                    <TableCell size ="small" key={h} style={{border: '.2rem solid white', fontSize:'.7rem', color: 'black', backgroundColor: '#cccccc', lineHeight:'1rem'}}>
+                                        <Typography variant="body2" align="center" > 
+                            
+                        
                                         { head.day.toLocaleString("en-GB", {
-                                            weekday: 'short',
+                                            weekday: 'short'})}
+                                        </Typography>
+                                    </TableCell>
+                                    );
+                                })}
+                            </TableRow>
+                            <TableRow>
+                                {header.map((head, h)=>{
+                                    return ( 
+                                    <TableCell size ="small" key={h} style={{border: '.2rem solid white', fontSize:'.7rem', color: 'black', backgroundColor: '#cccccc', lineHeight:'1rem'}}>
+                                        <Typography variant="body2" align="center" > 
+                            
+                        
+                                        { head.day.toLocaleString("en-GB", {
                                             day: "numeric",
-                                            month: "short",
+                                            month: "numeric",
                                             year: "numeric", })}
-                                    </TableCell>);
+                                        </Typography>
+                                    </TableCell>
+                                    );
                                 })}
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {projectsCalendar.map((line,i)=>{
                                 return (
-                                <TableRow key={i} style={{border: '3px solid grey'}}>
+                                <TableRow key={i} style={{border: '.2rem solid #cccccc'}}>
                                     {Object.entries(line).map((days,k)=>{
                                         if(Object.entries(days['1'].project).length > 0){
                                             if(days['1'].colspan){
                                                 
                                                 return ( 
-                                                    <TableCell key={k} colSpan={days['1'].colspan} style={{border: '3px solid grey'}}>
-                                                        <Button variant="secondary" block >
+                                                    <TableCell key={k} colSpan={days['1'].colspan} style={{border: '.2rem solid #cccccc'}}>
+                                                        <Button variant="light" block >
                                                             {days['1'].project.name} 
                                                         </Button>
                                                     </TableCell>)
@@ -128,7 +151,7 @@ export default function CalendarScreen() {
                                             
                                         }else{
                                             
-                                            return ( <TableCell key={k} style={{border: '2px solid grey'}}></TableCell>)
+                                            return ( <TableCell key={k} style={{border: '.2rem solid #cccccc'}}></TableCell>)
                                         }
                                     })}
                                 </TableRow>)

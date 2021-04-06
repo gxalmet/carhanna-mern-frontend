@@ -79,9 +79,11 @@ export default function UserProfileScreen(props) {
         <Container fluid>
             <Container fluid xs={12}>
                 <Card >
-                    <Typography variant="h5" align="center" > 
-                        User Profile
-                    </Typography>
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            User Profile
+                        </Typography>
+                    </Card.Body>
                 </Card>
                 <Form className="form" onSubmit={submitHandler}>
                     { loading && ( <LoadingBox>Loading...</LoadingBox> )}

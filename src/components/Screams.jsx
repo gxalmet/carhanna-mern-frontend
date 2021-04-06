@@ -8,7 +8,7 @@ import { readScream } from '../actions/screamActions'
 import { Form, Button } from 'react-bootstrap';
 
 import { updateScream } from '../actions/screamActions'
-
+import SendSharpIcon from '@material-ui/icons/SendSharp';
 import ChatRow from './ChatRow';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +43,7 @@ function ScreamsScreen(props) {
     }
 
     useEffect(() => {
+        debugger;
         scrollToBottom();
         if(projectSel._id){
             if(loading === false){
@@ -52,7 +53,7 @@ function ScreamsScreen(props) {
                     setScreamsList(scream);
                 }   
             }else{
-                dispatch(readScream(projectSel._id));
+                //dispatch(readScream(projectSel._id));
             }
             if(projectSel._id !== screamsList.projectId){
                 dispatch(readScream(projectSel._id));
@@ -118,7 +119,7 @@ function ScreamsScreen(props) {
             </Grid>
             <Grid item xs={2} style={{ position: 'relative'}}>
                 <Button variant="outline-secondary" onClick={(e)=>sendScream(e)}>
-                    Send
+                    <SendSharpIcon/>
                 </Button>
             </Grid>
         </Grid>

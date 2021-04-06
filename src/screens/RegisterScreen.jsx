@@ -6,7 +6,7 @@ import { register } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 //import './RegisterScreen.css';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Card } from 'react-bootstrap';
 //import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Alert from 'react-bootstrap/Alert';
@@ -45,9 +45,14 @@ export default function RegisterScreen(props) {
 
         <Container fluid>
             <Container fluid xs={12}>
-                <Typography variant="h5" align="center" > 
-                    Register
-                </Typography>
+                    <Card >
+                        <Card.Body>
+                            <Typography variant="h5" align="center" > 
+                                Register
+                            </Typography>
+                        </Card.Body>
+                    </Card>
+
                 <Form className="form" onSubmit={submitHandler}>
                     { loading && ( <LoadingBox mes="Loading"></LoadingBox> ) }
                     { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }

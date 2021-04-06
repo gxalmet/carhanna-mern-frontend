@@ -10,7 +10,7 @@ import
     useSelector 
 } from 'react-redux';
 
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -23,20 +23,20 @@ import { useHistory } from 'react-router-dom';
 import SaveIcon from '@material-ui/icons/Save';
 import { convertDate } from  '../utils/utils.js';
 import AddCollegueToProject from '../components/AddCollegueToProject';
-import { makeStyles } from '@material-ui/core';
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
+// import { makeStyles } from '@material-ui/core';
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         flexGrow: 1,
       
-    },
+//     },
 
-}));
+// }));
 export default function EditProjectScreen(props) {
     const history = useHistory();
     var projectId = props.match.params.id;
 
     const dispatch = useDispatch();
-    const classes = useStyles();
+    // const classes = useStyles();
     const projectRead = useSelector((state)=> state.projectRead)  || {};
     const { loading, project, success } = projectRead;
 
@@ -106,74 +106,76 @@ export default function EditProjectScreen(props) {
     
 
     return (
-        <Grid container className={classes.root}>
-            <Grid container justify="center">
-                <Grid item xs={11}>
-                    <Typography variant="h5" align="center" > 
-                        Create project
-                    </Typography>
-                    { loading === true && ( <LoadingBox id="1" mes="Loading data..."></LoadingBox> ) }
-                    {/* { success === true && ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> ) } */}
-                    { successUpdated === true && ( <MessageBox id ="2" variant='info' mes="Project saved!!"></MessageBox> ) }
-                    <Form className="form" >
-                        <Form.Group controlId="formBasicText">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" defaultValue={name} onChange={(e)=>setName(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicDes">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control  as="textarea" rows={3}  defaultValue={description} onChange={(e)=>setDescription(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicBegin">
-                            <Row>
-                                <Col>
-                                    <Form.Label>Begin Date</Form.Label>
-                                    <Form.Control type="date" defaultValue={begin_date} onChange={(e)=>setBegin_date(e.target.value)}/>
-                                </Col>
-                                <Col>
-                                    <Form.Label>End Date</Form.Label>
-                                    <Form.Control type="date" defaultValue={end_date} onChange={(e)=>setEnd_date(e.target.value)}/>
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <Form.Group controlId="StatusControl">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Control as="select" custom value={status} onChange={(e)=>setStatus(e.target.value)}> 
-                                {statusList.map((stat,i)=>{
-                                    if(stat === status){
-                                        return (<option key={i} value={stat.value} selected="true">{stat.label}</option>)
-                                    }else{
-                                        return (<option key={i} value={stat.value} >{stat.label}</option>)
-                                    }
-                                })}
-                            </Form.Control>
-                        </Form.Group>
-                        
-                        { project && team &&
-                        
-                            <AddCollegueToProject 
-                                key={project._id}
-                                teamProject={team} 
-                                projectOwner={project.user_id} 
-                                addUserToTeam={addIdToTeam}
-                                removeUserToTeam={removeIdToTeam}>
-                            </AddCollegueToProject>
-                        }
-                        
-                        <br></br>
-                        <Button variant="light" block onClick={saveProjectButton}>
-                            <SaveIcon ></SaveIcon>
-                        </Button>
-                        <Button variant="light" block onClick={createProjectButton}>
-                            Create sub-project
-                        </Button>
-                        <Button variant="light" block onClick={createChatButton}>
-                            Create chat
-                        </Button>
-                    </Form>
-                </Grid>
+        <Container fluid>
+            <Grid item xs={12}>
+                <Card >
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            Edit project
+                        </Typography>
+                    </Card.Body>
+                </Card>
+                { loading === true && ( <LoadingBox id="1" mes="Loading data..."></LoadingBox> ) }
+                {/* { success === true && ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> ) } */}
+                { successUpdated === true && ( <MessageBox id ="2" variant='info' mes="Project saved!!"></MessageBox> ) }
+                <Form className="form" >
+                    <Form.Group controlId="formBasicText">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" defaultValue={name} onChange={(e)=>setName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicDes">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control  as="textarea" rows={3}  defaultValue={description} onChange={(e)=>setDescription(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicBegin">
+                        <Row>
+                            <Col>
+                                <Form.Label>Begin Date</Form.Label>
+                                <Form.Control type="date" defaultValue={begin_date} onChange={(e)=>setBegin_date(e.target.value)}/>
+                            </Col>
+                            <Col>
+                                <Form.Label>End Date</Form.Label>
+                                <Form.Control type="date" defaultValue={end_date} onChange={(e)=>setEnd_date(e.target.value)}/>
+                            </Col>
+                        </Row>
+                    </Form.Group>
+                    <Form.Group controlId="StatusControl">
+                        <Form.Label>Status</Form.Label>
+                        <Form.Control as="select" custom value={status} onChange={(e)=>setStatus(e.target.value)}> 
+                            {statusList.map((stat,i)=>{
+                                if(stat === status){
+                                    return (<option key={i} value={stat.value} selected="true">{stat.label}</option>)
+                                }else{
+                                    return (<option key={i} value={stat.value} >{stat.label}</option>)
+                                }
+                            })}
+                        </Form.Control>
+                    </Form.Group>
+                    
+                    { project && team &&
+                    
+                        <AddCollegueToProject 
+                            key={project._id}
+                            teamProject={team} 
+                            projectOwner={project.user_id} 
+                            addUserToTeam={addIdToTeam}
+                            removeUserToTeam={removeIdToTeam}>
+                        </AddCollegueToProject>
+                    }
+                    
+                    <br></br>
+                    <Button variant="light" block onClick={saveProjectButton}>
+                        <SaveIcon ></SaveIcon>
+                    </Button>
+                    <Button variant="light" block onClick={createProjectButton}>
+                        Create sub-project
+                    </Button>
+                    <Button variant="light" block onClick={createChatButton}>
+                        Create chat
+                    </Button>
+                </Form>
             </Grid>
-        </Grid>
+        </Container>
     );
 }
 

@@ -2,9 +2,10 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {Container} from 'react-bootstrap';
-import {convertDateCool} from '../utils/utils';
+import { convertDateCool } from '../utils/utils';
 import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core';
+
 const useStyles = makeStyles((theme) => ({
     message: {
         // borderLeft: '.2rem solid grey', 

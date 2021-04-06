@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { signIn } from '../actions/userActions';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LoadingBox from '../components/LoadingBox';
@@ -40,9 +40,13 @@ export default function LoginScreen(props) {
             <Grid item xs={9}>
                 { loading && ( <LoadingBox id ="1" mes="Loading..."></LoadingBox> ) }
                 { error && ( <MessageBox id ="2" variant='warning' mes={error}></MessageBox> ) }
-                <Typography variant="h5" align="center" > 
-                    Sign In
-                </Typography>
+                <Card >
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            Sign In
+                        </Typography>
+                    </Card.Body>
+                </Card>
                 <Form className="form" onSubmit={submitHandler}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

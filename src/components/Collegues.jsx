@@ -40,10 +40,10 @@ function Collegues(props) {
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center" >Name</TableCell>
-                        <TableCell align="center" >Surname</TableCell>
-                        <TableCell align="center" >E-mail</TableCell>
-                        <TableCell  align="center">Action</TableCell>
+                        {/* <TableCell align="center" >Name</TableCell>
+                        <TableCell align="center" >Surname</TableCell> */}
+                        <TableCell align="left" >E-mail</TableCell>
+                        <TableCell  align="right">Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -52,12 +52,12 @@ function Collegues(props) {
                     
                     return (
                     <TableRow key={i}>
-                        <TableCell  align="center">{col.name}</TableCell>
-                        <TableCell  align="center">{col.surname}</TableCell>
-                        <TableCell  align="center">{col.email}</TableCell>
-                        <TableCell  align="center">
+                        {/* <TableCell  align="center">{col.name}</TableCell>
+                        <TableCell  align="center">{col.surname}</TableCell> */}
+                        <TableCell  align="left">{col.email}</TableCell>
+                        <TableCell  align="right">
                             { col._id !== userId ? (
-                                <Button key={i} variant="ligth" block type="submit" onClick={(e)=>removeToTeam(col)} title="Save team">
+                                <Button key={i} variant="ligth" block onClick={(e)=>removeToTeam(col)} title="Save team">
                                     <PersonAddDisabledIcon></PersonAddDisabledIcon>
                                 </Button>
                             ) : (

@@ -23,7 +23,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import TableBody from '@material-ui/core/TableBody';
 import RowComp from '../components/RowComp';
-
+import {  Card } from 'react-bootstrap';
 
 // const useRowStyles = makeStyles({
 //     root: {
@@ -55,10 +55,15 @@ export default function ProjectsScreen () {
             direction="row"
             justify="center"
             alignItems="center">
-            <Grid item xs={11}>
-                <Typography variant="h5" align="center" > 
-                    Projects list
-                </Typography>
+            <Grid item xs={12}>
+                <Card >
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            Projects list
+                        </Typography>
+                    </Card.Body>
+                </Card>
+
                 <TableContainer component={Paper}>
                     <Table aria-label="collapsible table">
                         <TableHead>

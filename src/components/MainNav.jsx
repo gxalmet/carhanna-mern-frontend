@@ -171,15 +171,16 @@ export default function MainNav() {
       history.push("/home");
       
     }
-    var user = '';
-    if(userInfo){
-      user = userInfo.name + ' ' + userInfo.surname;
-    }
+    // var user = '';
+    // if(userInfo){
+    //   user = userInfo.name + ' ' + userInfo.surname;
+    // }
     
     
 
     return (
-        <div className={classes.root}>
+         <React.Fragment>
+           {/* <React.Fragment className={classes.root}></React.Fragment> */}
             <AppBar
                 position="static"
                 className={clsx(classes.appBar, { [classes.appBarShift]: open, })}
@@ -271,7 +272,7 @@ export default function MainNav() {
                         </ListItem>
                       <ListItem button key="profile" onClick={()=>navigate('/userprofile')} className={classes.listMenu}>
                         <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
-                        <ListItemText primary={user}/>
+                        <ListItemText primary="User profile"/>
                       </ListItem>
                       <ListItem button key="signout" onClick={signOutHandler} className={classes.listMenu}>
                         <ListItemIcon><ExitToAppIcon /></ListItemIcon>
@@ -295,7 +296,7 @@ export default function MainNav() {
 
               </List>
             </Drawer>
-            </div>
+            </React.Fragment>
     );
 }
 

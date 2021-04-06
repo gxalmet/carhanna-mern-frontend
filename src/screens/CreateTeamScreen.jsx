@@ -7,7 +7,7 @@ import
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 //import { makeStyles } from '@material-ui/core/styles';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { createTeam } from '../actions/teamActions';
@@ -52,9 +52,13 @@ export default function TeamScreen () {
             justify="center"
             alignItems="center">
             <Grid item xs={11}>
-                <Typography variant="h5" align="center" > 
-                    My team
-                </Typography>
+                <Card >
+                    <Card.Body>
+                        <Typography variant="h5" align="center" > 
+                            My team
+                        </Typography>
+                    </Card.Body>
+                </Card>
                 { loading && ( <LoadingBox>Team Created!!</LoadingBox> ) }
                 { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }
                 <Form className="form" onSubmit={submitHandler}>

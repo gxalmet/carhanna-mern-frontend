@@ -4,7 +4,7 @@ import
     useDispatch, 
     useSelector 
 } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 //import { makeStyles } from '@material-ui/core/styles';
 import { Form, Button, Card, Container, Col } from 'react-bootstrap';
@@ -42,9 +42,6 @@ export default function TeamScreen () {
         history.push(ref);  
     }
 
-    
-
-
     useEffect(() => {
         
         if(loading === false){
@@ -74,50 +71,49 @@ export default function TeamScreen () {
 
     return (
         
-        <Container fluid>
-            <Grid item xs={12}>
-                <Typography variant="h5" align="center" >My team</Typography>
-                { loading && ( <LoadingBox mes="Manage your team"></LoadingBox> ) }
-                { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }
-                { teamDisplay ? 
-                (   
-                    <Card>
-                        <Card.Body>
-                            <Form className="form" >
-                                <Form.Row>
-                                    <Col sm="11">
-                                        
-                                        <Form.Group controlId="formBasicText">
-                                            {/* <Form.Label>Team Name</Form.Label> */}
-                                            <Form.Control type="text" defaultValue={name} onChange={(e)=>setName(e.target.value)}/>
-                                        </Form.Group>
-                                        
-                                    </Col>
-                                    <Col>
-                                        <Button  variant="light" block type="submit" onClick={updateTeamButton} title="Save team">
-                                            <SaveIcon ></SaveIcon>
-                                        </Button> 
-                                    </Col>
-                                </Form.Row>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                )
-                    : 
-                (   <Form className="form" >
-                        <Button  variant="primary" block type="submit" onClick={createTeam}>
-                            Create team
-                        </Button> 
-                    </Form> )
-                }
-                { team && 
-                    <Collegues team ={team} action={updateTeamButton}></Collegues>
-                }  
-                <AddCollegue team ={team} action={updateTeamButton}></AddCollegue>
-            </Grid>
-            
-            
+        <Container fluid xs={12}>
+            <Card>
+                <Card.Body>
+                    <Typography variant="h5" align="center" >My team</Typography>
+                </Card.Body>
+            </Card>
+            { loading && ( <LoadingBox mes="Manage your team"></LoadingBox> ) }
+            { error && ( <MessageBox id ="1" variant='danger' mes={error}></MessageBox> ) }
+            { teamDisplay ? 
+            (   
+                <Card>
+                    <Card.Body>
+                        <Form className="form" >
+                            <Form.Row>
+                                <Col xs="11">
+                                    <Form.Group controlId="formBasicText">
+                                        {/* <Form.Label>Team Name</Form.Label> */}
+                                        <Form.Control type="text" defaultValue={name} onChange={(e)=>setName(e.target.value)}/>
+                                    </Form.Group>   
+                                </Col>
+                                <Col>
+                                    <Button  variant="light" block type="submit" onClick={updateTeamButton} title="Save team">
+                                        <SaveIcon ></SaveIcon>
+                                    </Button> 
+                                </Col>
+                            </Form.Row>
+                        </Form>
+                    </Card.Body>
+                </Card>
+            )
+                : 
+            (   <Form className="form" >
+                    <Button  variant="primary" block type="submit" onClick={createTeam}>
+                        Create team
+                    </Button> 
+                </Form> )
+            }
+            { team && 
+                <Collegues team ={team} action={updateTeamButton}></Collegues>
+            }  
+            <AddCollegue team ={team} action={updateTeamButton}></AddCollegue>
         </Container>
+        
        
 );
 }

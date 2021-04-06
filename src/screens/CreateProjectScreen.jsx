@@ -10,25 +10,26 @@ import
     useSelector 
 } from 'react-redux';
 
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import Grid from '@material-ui/core/Grid';
+import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
+import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { statusList }  from '../constants/statusConstats';
 import { createProject } from '../actions/projectActions';
 //import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { makeStyles } from '@material-ui/core';
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-}));
+import SaveIcon from '@material-ui/icons/Save';
+// import { makeStyles } from '@material-ui/core';
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         flexGrow: 1,
+//     },
+// }));
 export default function CreateProjectScreen(props) {
     var parentId = props.match.params.id;
     
     const dispatch = useDispatch();
-    const classes = useStyles();
+    //const classes = useStyles();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -42,7 +43,7 @@ export default function CreateProjectScreen(props) {
     //    loading, 
     //    project, 
         
-        success,
+        // success,
         error 
     } = projectCreate;
 
@@ -59,59 +60,65 @@ export default function CreateProjectScreen(props) {
     }
 
     return (
-        <Grid container className={classes.root}>
-            <Grid container justify="center">
-                <Grid item xs={11}>
+
+        <Container fluid>
+            <Grid item xs={12}>
+            <Card >
+                <Card.Body>
                     <Typography variant="h5" align="center" > 
                         Create project
                     </Typography>
-                    {/* { loading === true && ( <LoadingBox id="1" mes="Loading data..."></LoadingBox> ) } */}
-                    { success && ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> ) }
-                    { error && ( <MessageBox id ="2" variant='danger' mes={error}></MessageBox> ) }
-                    <Form className="form" onSubmit={createProjectButton}>
-                        <Form.Group controlId="formBasicText">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter name" onChange={(e)=>setName(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicDes">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control  as="textarea" rows={3} placeholder="Enter description" onChange={(e)=>setDescription(e.target.value)}/>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicBegin">
-                            <Row>
-                                <Col>
-                                    <Form.Label>Begin Date</Form.Label>
-                                    <Form.Control type="date"  onChange={(e)=>setBegin_date(e.target.value)}/>
-                                </Col>
-                                <Col>
-                                    <Form.Label>End Date</Form.Label>
-                                    <Form.Control type="date"  onChange={(e)=>setEnd_date(e.target.value)}/>
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <Form.Group controlId="StatusControl">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Control as="select" custom onChange={(e)=>setStatus(e.target.value)}> 
-                                {statusList.map((stat,i)=>{
-                                    return (<option key={i} value={stat.value}>{stat.label}</option>)
-                                })}
-                                
-                                {/* <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option> */}
-                            </Form.Control>
-                        </Form.Group>
-                        <br></br>
+                </Card.Body>
+            </Card>
+            {/* { loading === true && ( <LoadingBox id="1" mes="Loading data..."></LoadingBox> ) } */}
+            {/* { success && ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> ) } */}
+            { error ? 
+            ( <MessageBox id ="2" variant='danger' mes={error}></MessageBox> ) : 
+            ( <MessageBox id ="2" variant='info' mes="Creación correcta!!"></MessageBox> )}
+            <Form className="form" onSubmit={createProjectButton}>
+                <Form.Group controlId="formBasicText">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Enter name" onChange={(e)=>setName(e.target.value)}/>
+                </Form.Group>
+                <Form.Group controlId="formBasicDes">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control  as="textarea" rows={3} placeholder="Enter description" onChange={(e)=>setDescription(e.target.value)}/>
+                </Form.Group>
+                <Form.Group controlId="formBasicBegin">
+                    <Row>
+                        <Col>
+                            <Form.Label>Begin Date</Form.Label>
+                            <Form.Control type="date"  onChange={(e)=>setBegin_date(e.target.value)}/>
+                        </Col>
+                        <Col>
+                            <Form.Label>End Date</Form.Label>
+                            <Form.Control type="date"  onChange={(e)=>setEnd_date(e.target.value)}/>
+                        </Col>
+                    </Row>
+                </Form.Group>
+                <Form.Group controlId="StatusControl">
+                    <Form.Label>Status</Form.Label>
+                    <Form.Control as="select" custom onChange={(e)=>setStatus(e.target.value)}> 
+                        {statusList.map((stat,i)=>{
+                            return (<option key={i} value={stat.value}>{stat.label}</option>)
+                        })}
                         
-                        <Button variant="primary" block type="submit" disabled={button}>
-                            Submit
-                        </Button> 
-                        
-                    </Form>
-                </Grid>
+                        {/* <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option> */}
+                    </Form.Control>
+                </Form.Group>
+                <br></br>
+                
+                <Button variant="ligth" block type="submit" disabled={button}>
+                    <SaveIcon ></SaveIcon>
+                </Button> 
+                
+            </Form>
             </Grid>
-        </Grid>
+        </Container>
+
     );
 }
 

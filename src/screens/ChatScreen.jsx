@@ -5,7 +5,7 @@ React,
     useEffect 
 } from 'react';
 //import Grid from '@material-ui/core/Grid';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import Typography from '@material-ui/core/Typography';
 
 import 
@@ -78,16 +78,22 @@ const useStyles = makeStyles((theme) => ({
 
     return (
         <Container fluid>
-            
+            <Card >
+                <Card.Body>
+                    <Typography variant="h5" align="center" > 
+                        My Chats
+                    </Typography>
+                </Card.Body>
+            </Card>
             <Typography variant="h5" align="center" > 
                 My Chats
             </Typography>
             <Row>
-                <Col className={classes.header} >
+                {/* <Col className={classes.header} >
                     <Typography variant="h5" align="center"> 
                         Projects
                     </Typography>
-                </Col>
+                </Col> */}
                 <Col className={classes.header} >
                     <Typography variant="h5" align="center"> 
                         Chats: {projectSelected.name}
